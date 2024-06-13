@@ -83,4 +83,11 @@ sub addFactorValue {
 }
 sub getFactorValues { $_[0]->{_factor_values}  || [] }
 
+#
+# allow StudyAssayFileReader->readLineToObjects() to split this entity
+# into multiple entities based on a delimiter
+#
+sub isSplittable { return 0 }
+sub getSplitDelimiter { die "getSplitDelimiter() called on a non-splittable object" }
+
 1;

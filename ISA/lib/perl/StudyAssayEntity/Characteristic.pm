@@ -52,4 +52,7 @@ sub qualifierContextMethod {
   return "addCharacteristic";
 }
 
+sub isSplittable { return 1; }
+sub getSplitDelimiter { return qr/;\s*/ }
+
 1;

@@ -155,7 +155,33 @@ sub readLineToObjects {
     }
   }
 
+  @rv = map { $_->isSplittable() ? splitObject($_) : $_ } @rv;
+
   return \@rv;
+}
+
+sub splitObject {
+  my ($obj) = @_;
+  my $delimiter = $obj->getDelimiter();
+  my @rv = ();
+
+  # Do something like this:
+  #
+  # check that $obj->getValue and the scalar return values of $obj->getXXX (wjere XXX in $obj->getAttributeNames)
+  # all split to the same number of values, N.
+  #
+  # there could be object attributes such as from $obj->getUnit
+  # if so, I guess check that that has the same number of splits as $obj->getValue
+  #
+  # that could also have sub-objects? so potentially do this recursively?
+  #
+  # if all is good, create N new objects, ideally by a deep copy of $obj, then
+  # go in to each copy and split and replace all the scalar values with the
+  # appropriate value (e.g. for the second of three objects, replace 'aaa;bbb;ccc' with 'bbb')
+  #
+  # otherwise warn about the split count mismatch and return the original object?
+
+  return @rv;
 }
 
 1;
